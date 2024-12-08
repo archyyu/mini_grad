@@ -1,7 +1,7 @@
 class Neuron {
     constructor(nin) {
         this.w = Array.from({ length: nin }, () => new Value(Math.random() * 2 - 1)); // Initialize weights
-        this.b = new Value(0); // Initialize bias
+        this.b = new Value(Math.random() * 2 - 1); // Initialize bias
     }
 
     parameters() {

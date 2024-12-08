@@ -20,7 +20,6 @@ class Value {
     }
 
     mul(other) {
-        other = other instanceof Value ? other : new Value(other);
         const out = new Value(this.data * other.data, [this, other], '*');
 
         out._backward = () => {
@@ -44,11 +43,13 @@ class Value {
         return out;
     }
 
-    relu() {
-        const out = new Value(this.data > 0 ? this.data : 0, [this], 'ReLU');
+    tanh() {
+        const x = this.data;
+        const t = (Math.exp(2 * x) - 1) / (Math.exp(2 * x) + 1);
+        const out = new Value(t, [this], 'tanh');
 
         out._backward = () => {
-            this.grad += (out.data > 0 ? 1 : 0) * out.grad;
+            this.grad += (1 - t ** 2) * out.grad;
         };
 
         return out;
@@ -77,7 +78,7 @@ class Value {
     }
 
     neg() {
-        return this.mul(-1);
+        return this.mul(new Value(-1));
     }
 
     radd(other) {

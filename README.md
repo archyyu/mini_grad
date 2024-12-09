@@ -37,8 +37,10 @@ for(let i=0;i<10000;i++) {
     }
 }
 
-//verify
+//to verify
 for (let item of x) {
         let p = mlp.forward(item);
         console.log(p)
 }
+
+
